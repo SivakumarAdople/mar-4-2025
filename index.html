@@ -15,13 +15,25 @@
             top: 0;
             left: 0;
         }
+        #changeColorButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            padding: 10px 20px;
+            background-color: #fff;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <canvas id="fluidCanvas"></canvas>
+    <button id="changeColorButton">Change Color</button>
     <script>
         const canvas = document.getElementById("fluidCanvas");
         const ctx = canvas.getContext("2d");
+        const changeColorButton = document.getElementById("changeColorButton");
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -66,7 +78,15 @@
             requestAnimationFrame(drawWaves);
         }
 
+        function changeWaveColors() {
+            for (let wave of waves) {
+                wave.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+            }
+        }
+
         drawWaves();
+
+        changeColorButton.addEventListener("click", changeWaveColors);
 
         window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;
